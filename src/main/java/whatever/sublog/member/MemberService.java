@@ -16,7 +16,7 @@ public class MemberService {
 
     @Transactional
     public void createMember(MemberRegisterForm registerForm) {
-        Optional<Member> member = memberRepository.findbyUid(registerForm.getUid());
+        Optional<Member> member = memberRepository.findByUid(registerForm.getUid());
         if (member.isPresent()) {
             throw new DuplicateUidException("존재하는 아이디: " + registerForm.getUid());
         }
