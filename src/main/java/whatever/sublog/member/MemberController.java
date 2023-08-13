@@ -2,14 +2,19 @@ package whatever.sublog.member;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import whatever.sublog.member.dto.MemberLoginForm;
 import whatever.sublog.member.dto.MemberRegisterForm;
+
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RequestMapping("/members")
@@ -24,5 +29,26 @@ public class MemberController {
     public ResponseEntity<Void> register(@RequestBody @Valid MemberRegisterForm registerForm) {
         memberService.createMember(registerForm);
         return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "수동 로그인")
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody MemberLoginForm loginForm, HttpSession session) {
+        Long memberId = memberService.loginMember(loginForm);
+        String sessionKey = UUID.randomUUID().toString();
+        session.setAttribute(sessionKey, memberId);
+        return ResponseEntity.ok()
+                .header("Authorization", sessionKey)
+                .build();
+    }
+
+    @Operation(summary = "자동 로그인")
+    @PostMapping("/auto-login")
+    public ResponseEntity<Void> autoLogin(@RequestHeader("Authorization") String sessionKey, HttpSession session) {
+        Long memberId = (Long)session.getAttribute(sessionKey);
+        memberService.findMember(memberId);
+        return ResponseEntity.ok()
+                .header("Authentication", sessionKey)
+                .build();
     }
 }

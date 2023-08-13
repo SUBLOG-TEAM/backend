@@ -7,8 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import whatever.sublog.global.exception.AutoLoginFailException;
 import whatever.sublog.global.exception.DuplicateUidException;
 import whatever.sublog.global.exception.InvalidInputFormatException;
+import whatever.sublog.global.exception.LoginFailException;
 
 @Slf4j
 @RestControllerAdvice
@@ -30,6 +32,16 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorMessage> handleBadRequest(Exception e, HttpServletRequest request) {
         return new ResponseEntity<>(buildErrorMessage(e, request),
             HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler({
+            LoginFailException.class,
+            AutoLoginFailException.class
+    })
+    public ResponseEntity<ErrorMessage> handleUnauthorized(Exception e, HttpServletRequest request) {
+        return new ResponseEntity<>(buildErrorMessage(e, request),
+                HttpStatus.UNAUTHORIZED);
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
