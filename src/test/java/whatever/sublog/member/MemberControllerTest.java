@@ -2,16 +2,17 @@ package whatever.sublog.member;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import whatever.sublog.common.ApiTest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static whatever.sublog.fixture.RegisterFixture.*;
 
-@WebMvcTest(MemberController.class)
-public class MemberControllerTest {
+@SuppressWarnings("NonAsciiCharacters")
+public class MemberControllerTest extends ApiTest {
 
     @Autowired
     private MockMvc mvc;
@@ -20,12 +21,9 @@ public class MemberControllerTest {
     private MemberService memberService;
 
     @Test
-    public void uid는_15자_이내로() throws Exception {
+    public void uid_16자_넘으면_400() throws Exception {
         // Given
-        String uid = "1234567890123456"; // 16 characters
-        String nickname = "TestNick";
-        String password = "password123!";
-        String requestBody = String.format("{\"uid\":\"%s\", \"nickname\":\"%s\", \"password\":\"%s\"}", uid, nickname, password);
+        String requestBody = uid_길이가_16자리();
 
         // When & Then
         mvc.perform(post("/members")
@@ -33,5 +31,102 @@ public class MemberControllerTest {
                         .content(requestBody))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    public void uid_한글_있으면_400() throws Exception {
+        // Given
+        String requestBody = uid에_한글();
+
+        // When & Then
+        mvc.perform(post("/members")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void uid_공백_있으면_400() throws Exception {
+        // Given
+        String requestBody = uid_띄어쓰기();
+
+        // When & Then
+        mvc.perform(post("/members")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void uid_15자_이내면_200() throws Exception {
+        // Given
+        String requestBody = uid_길이가_15자리();
+
+        // When & Then
+        mvc.perform(post("/members")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void nickname_10자_넘으면_400() throws Exception {
+        // Given
+        String requestBody = nickname_길이가_11자리();
+
+        // When & Then
+        mvc.perform(post("/members")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void nickname_특수문자_있으면_400() throws Exception {
+        // Given
+        String requestBody = nickname_특수문자();
+
+        // When & Then
+        mvc.perform(post("/members")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void nickname_중국어_있으면_400() throws Exception {
+        // Given
+        String requestBody = nickname_중국어();
+
+        // When & Then
+        mvc.perform(post("/members")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void nickname_띄어쓰기_있으면_400() throws Exception {
+        // Given
+        String requestBody = nickname_띄어쓰기();
+
+        // When & Then
+        mvc.perform(post("/members")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void nickname_10자_이내면_200() throws Exception {
+        // Given
+        String requestBody = nickname_길이가_10자리();
+
+        // When & Then
+        mvc.perform(post("/members")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk());
+    }
+    
 
 }
