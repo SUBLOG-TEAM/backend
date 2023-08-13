@@ -6,6 +6,6 @@ import whatever.sublog.member.Member;
 public class MemberFixture {
 
     public static Member 회원_만들기(String uid, String nickname, String password) {
-        return new Member("test1", "testName", "password123!");
+        return new Member(uid, nickname, password);
     }
 }

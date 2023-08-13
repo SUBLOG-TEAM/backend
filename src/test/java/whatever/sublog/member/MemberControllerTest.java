@@ -9,9 +9,16 @@ import whatever.sublog.common.ApiTest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static whatever.sublog.fixture.RegisterFixture.*;
+import static whatever.sublog.fixture.RegisterFixture.nickname_길이가_10자리;
+import static whatever.sublog.fixture.RegisterFixture.nickname_길이가_11자리;
+import static whatever.sublog.fixture.RegisterFixture.nickname_띄어쓰기;
+import static whatever.sublog.fixture.RegisterFixture.nickname_중국어;
+import static whatever.sublog.fixture.RegisterFixture.nickname_특수문자;
+import static whatever.sublog.fixture.RegisterFixture.uid_길이가_15자리;
+import static whatever.sublog.fixture.RegisterFixture.uid_길이가_16자리;
+import static whatever.sublog.fixture.RegisterFixture.uid_띄어쓰기;
+import static whatever.sublog.fixture.RegisterFixture.uid에_한글;
 
-@SuppressWarnings("NonAsciiCharacters")
 public class MemberControllerTest extends ApiTest {
 
     @Autowired
@@ -127,6 +134,4 @@ public class MemberControllerTest extends ApiTest {
                         .content(requestBody))
                 .andExpect(status().isOk());
     }
-    
-
 }

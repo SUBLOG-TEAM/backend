@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import whatever.sublog.member.MemberController;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@SuppressWarnings("NonAsciiCharacters")
 @WebMvcTest(MemberController.class)
 public class ApiTest {
 }

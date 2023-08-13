@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import whatever.sublog.global.exception.DuplicateUidException;
 import whatever.sublog.global.exception.InvalidInputFormatException;
 
 @Slf4j
@@ -31,4 +32,12 @@ public class GlobalExceptionHandler {
             HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler({
+            DuplicateUidException.class
+    })
+    public ResponseEntity<ErrorMessage> handleConflict(Exception e, HttpServletRequest request) {
+        return new ResponseEntity<>(buildErrorMessage(e, request),
+                HttpStatus.CONFLICT);
+    }
 }
