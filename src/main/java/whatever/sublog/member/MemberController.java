@@ -17,7 +17,7 @@ import whatever.sublog.member.dto.MemberRegisterForm;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@RequestMapping("/members")
+@RequestMapping("/member")
 @RestController
 @Tag(name = "회원 관련 API", description = "로그인, 회원 가입, 조회, 수정 등 회원 관련 기능을 제공하는 API입니다.")
 public class MemberController {
@@ -25,7 +25,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @Operation(summary = "회원 가입")
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody @Valid MemberRegisterForm registerForm) {
         memberService.createMember(registerForm);
         return ResponseEntity.ok().build();

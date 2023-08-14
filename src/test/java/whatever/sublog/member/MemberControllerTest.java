@@ -27,13 +27,15 @@ public class MemberControllerTest extends ApiTest {
     @MockBean
     private MemberService memberService;
 
+    private static String url = "/members/register";
+
     @Test
     public void uid_16자_넘으면_400() throws Exception {
         // Given
         String requestBody = uid_길이가_16자리();
 
         // When & Then
-        mvc.perform(post("/members")
+        mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isBadRequest());
@@ -45,7 +47,7 @@ public class MemberControllerTest extends ApiTest {
         String requestBody = uid에_한글();
 
         // When & Then
-        mvc.perform(post("/members")
+        mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isBadRequest());
@@ -57,7 +59,7 @@ public class MemberControllerTest extends ApiTest {
         String requestBody = uid_띄어쓰기();
 
         // When & Then
-        mvc.perform(post("/members")
+        mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isBadRequest());
@@ -69,7 +71,7 @@ public class MemberControllerTest extends ApiTest {
         String requestBody = uid_길이가_15자리();
 
         // When & Then
-        mvc.perform(post("/members")
+        mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isOk());
@@ -81,7 +83,7 @@ public class MemberControllerTest extends ApiTest {
         String requestBody = nickname_길이가_11자리();
 
         // When & Then
-        mvc.perform(post("/members")
+        mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isBadRequest());
@@ -93,7 +95,7 @@ public class MemberControllerTest extends ApiTest {
         String requestBody = nickname_특수문자();
 
         // When & Then
-        mvc.perform(post("/members")
+        mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isBadRequest());
@@ -105,7 +107,7 @@ public class MemberControllerTest extends ApiTest {
         String requestBody = nickname_중국어();
 
         // When & Then
-        mvc.perform(post("/members")
+        mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isBadRequest());
@@ -117,7 +119,7 @@ public class MemberControllerTest extends ApiTest {
         String requestBody = nickname_띄어쓰기();
 
         // When & Then
-        mvc.perform(post("/members")
+        mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isBadRequest());
@@ -129,7 +131,7 @@ public class MemberControllerTest extends ApiTest {
         String requestBody = nickname_길이가_10자리();
 
         // When & Then
-        mvc.perform(post("/members")
+        mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isOk());
