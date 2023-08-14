@@ -23,11 +23,14 @@ public class MemberRegisterForm {
     // @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,15}$", message = "password는 영문, 숫자, 특수문자를 포함해 8자리 이상 15자리 이내여야 합니다.")
     private String password;
 
+    private String passwordCheck;
+
     @Builder
-    public MemberRegisterForm(String uid, String nickname, String password) {
+    public MemberRegisterForm(String uid, String nickname, String password, String passwordCheck) {
         this.uid = uid;
         this.nickname = nickname;
         this.password = password;
+        this.passwordCheck = passwordCheck;
     }
 
     public Member dtoToEntity() {
