@@ -16,18 +16,18 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 15)
+    @Column(nullable = false, unique = true, length = 20)
     private String uid;
 
-    @Column(nullable = false, length = 10)
-    private String nickname;
+    @Column(nullable = false, length = 20)
+    private String name;
 
     @Column(nullable = false)
     private String password;
 
-    public Member(String uid, String nickname, String password) {
+    public Member(String uid, String name, String password) {
         this.uid = uid;
-        this.nickname = nickname;
+        this.name = name;
         this.password = password;
     }
 

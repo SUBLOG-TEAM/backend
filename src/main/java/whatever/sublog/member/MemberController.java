@@ -17,7 +17,7 @@ import whatever.sublog.member.dto.MemberRegisterForm;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@RequestMapping("/member")
+@RequestMapping("/members")
 @RestController
 @Tag(name = "회원 관련 API", description = "로그인, 회원 가입, 조회, 수정 등 회원 관련 기능을 제공하는 API입니다.")
 public class MemberController {

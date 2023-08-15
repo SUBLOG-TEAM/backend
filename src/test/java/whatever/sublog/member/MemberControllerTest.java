@@ -9,13 +9,12 @@ import whatever.sublog.common.ApiTest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static whatever.sublog.fixture.RegisterFixture.nickname_길이가_10자리;
-import static whatever.sublog.fixture.RegisterFixture.nickname_길이가_11자리;
-import static whatever.sublog.fixture.RegisterFixture.nickname_띄어쓰기;
-import static whatever.sublog.fixture.RegisterFixture.nickname_중국어;
-import static whatever.sublog.fixture.RegisterFixture.nickname_특수문자;
-import static whatever.sublog.fixture.RegisterFixture.uid_길이가_15자리;
-import static whatever.sublog.fixture.RegisterFixture.uid_길이가_16자리;
+import static whatever.sublog.fixture.RegisterFixture.name_길이가_20자리;
+import static whatever.sublog.fixture.RegisterFixture.name_길이가_21자리;
+import static whatever.sublog.fixture.RegisterFixture.name_띄어쓰기;
+import static whatever.sublog.fixture.RegisterFixture.name_특수문자;
+import static whatever.sublog.fixture.RegisterFixture.uid_길이가_20자리;
+import static whatever.sublog.fixture.RegisterFixture.uid_길이가_21자리;
 import static whatever.sublog.fixture.RegisterFixture.uid_띄어쓰기;
 import static whatever.sublog.fixture.RegisterFixture.uid에_한글;
 
@@ -30,9 +29,9 @@ public class MemberControllerTest extends ApiTest {
     private static String url = "/members/register";
 
     @Test
-    public void uid_16자_넘으면_400() throws Exception {
+    public void uid_21자_넘으면_400() throws Exception {
         // Given
-        String requestBody = uid_길이가_16자리();
+        String requestBody = uid_길이가_21자리();
 
         // When & Then
         mvc.perform(post(url)
@@ -66,9 +65,9 @@ public class MemberControllerTest extends ApiTest {
     }
 
     @Test
-    public void uid_15자_이내면_200() throws Exception {
+    public void uid_20자_이내면_200() throws Exception {
         // Given
-        String requestBody = uid_길이가_15자리();
+        String requestBody = uid_길이가_20자리();
 
         // When & Then
         mvc.perform(post(url)
@@ -78,9 +77,9 @@ public class MemberControllerTest extends ApiTest {
     }
 
     @Test
-    public void nickname_10자_넘으면_400() throws Exception {
+    public void name_20자_넘으면_400() throws Exception {
         // Given
-        String requestBody = nickname_길이가_11자리();
+        String requestBody = name_길이가_21자리();
 
         // When & Then
         mvc.perform(post(url)
@@ -90,9 +89,9 @@ public class MemberControllerTest extends ApiTest {
     }
 
     @Test
-    public void nickname_특수문자_있으면_400() throws Exception {
+    public void name_특수문자_있으면_400() throws Exception {
         // Given
-        String requestBody = nickname_특수문자();
+        String requestBody = name_특수문자();
 
         // When & Then
         mvc.perform(post(url)
@@ -102,9 +101,9 @@ public class MemberControllerTest extends ApiTest {
     }
 
     @Test
-    public void nickname_중국어_있으면_400() throws Exception {
+    public void name_띄어쓰기_있으면_400() throws Exception {
         // Given
-        String requestBody = nickname_중국어();
+        String requestBody = name_띄어쓰기();
 
         // When & Then
         mvc.perform(post(url)
@@ -114,21 +113,9 @@ public class MemberControllerTest extends ApiTest {
     }
 
     @Test
-    public void nickname_띄어쓰기_있으면_400() throws Exception {
+    public void name_20자_이내면_200() throws Exception {
         // Given
-        String requestBody = nickname_띄어쓰기();
-
-        // When & Then
-        mvc.perform(post(url)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    public void nickname_10자_이내면_200() throws Exception {
-        // Given
-        String requestBody = nickname_길이가_10자리();
+        String requestBody = name_길이가_20자리();
 
         // When & Then
         mvc.perform(post(url)
