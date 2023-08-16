@@ -62,8 +62,8 @@ public class RegisterFixture {
         return String.format("{\"uid\":\"%s\", \"name\":\"%s\", \"password\":\"%s\"}", uid, name, password);
     }
 
-    public static MemberRegisterForm 폼_객체_만들기(String uid, String name, String password, String passwordCheck) {
-        return new MemberRegisterForm(uid, name, password, passwordCheck);
+    public static MemberRegisterForm 폼_객체_만들기(String uid, String name, String password, String passwordConfirm) {
+        return new MemberRegisterForm(uid, name, password, passwordConfirm);
     }
 
     public static String 폼_json_만들기(String uid, String name, String password) {

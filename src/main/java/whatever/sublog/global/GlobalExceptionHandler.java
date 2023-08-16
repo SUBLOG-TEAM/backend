@@ -11,7 +11,7 @@ import whatever.sublog.global.exception.AutoLoginFailException;
 import whatever.sublog.global.exception.DuplicateUidException;
 import whatever.sublog.global.exception.InvalidInputFormatException;
 import whatever.sublog.global.exception.LoginFailException;
-import whatever.sublog.global.exception.PasswordCheckNotEqualException;
+import whatever.sublog.global.exception.PasswordConfirmNotEqualException;
 
 @Slf4j
 @RestControllerAdvice
@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({
         InvalidInputFormatException.class,
-        PasswordCheckNotEqualException.class
+        PasswordConfirmNotEqualException.class
     })
     public ResponseEntity<ErrorMessage> handleBadRequest(Exception e, HttpServletRequest request) {
         return new ResponseEntity<>(buildErrorMessage(e, request),

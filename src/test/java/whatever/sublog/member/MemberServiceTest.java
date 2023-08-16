@@ -4,7 +4,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import whatever.sublog.common.UnitTest;
 import whatever.sublog.global.exception.DuplicateUidException;
-import whatever.sublog.global.exception.PasswordCheckNotEqualException;
+import whatever.sublog.global.exception.PasswordConfirmNotEqualException;
 import whatever.sublog.member.dto.MemberRegisterForm;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -33,7 +33,7 @@ class MemberServiceTest extends UnitTest {
         MemberRegisterForm form = 폼_객체_만들기("test1", "testName", "password123!", "password123@");
 
         // When & Then
-        assertThrows(PasswordCheckNotEqualException.class, () -> {
+        assertThrows(PasswordConfirmNotEqualException.class, () -> {
             memberService.createMember(form);
         });
     }

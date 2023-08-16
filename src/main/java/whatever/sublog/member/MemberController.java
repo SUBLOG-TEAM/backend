@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RequestMapping("/members")
+@CrossOrigin("*")
 @RestController
 @Tag(name = "회원 관련 API", description = "로그인, 회원 가입, 조회, 수정 등 회원 관련 기능을 제공하는 API입니다.")
 public class MemberController {
