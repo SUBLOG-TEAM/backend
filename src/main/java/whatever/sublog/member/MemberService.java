@@ -35,10 +35,10 @@ public class MemberService {
     }
 
     @Transactional
-    public Long loginMember(MemberLoginForm loginForm) {
+    public Member loginMember(MemberLoginForm loginForm) {
         Member member = memberRepository.findByUidAndPassword(loginForm.getUid(), loginForm.getPassword())
                 .orElseThrow(() -> new LoginFailException("아이디 또는 패스워드 오류"));
-        return member.getId();
+        return member;
     }
 
     public void findMember(Long memberId) {

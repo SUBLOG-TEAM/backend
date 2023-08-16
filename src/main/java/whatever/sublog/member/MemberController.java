@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import whatever.sublog.member.dto.LoginSuccessResponse;
 import whatever.sublog.member.dto.MemberLoginForm;
 import whatever.sublog.member.dto.MemberRegisterForm;
 
@@ -35,13 +36,13 @@ public class MemberController {
 
     @Operation(summary = "수동 로그인")
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody MemberLoginForm loginForm, HttpSession session) {
-        Long memberId = memberService.loginMember(loginForm);
+    public ResponseEntity<LoginSuccessResponse> login(@RequestBody MemberLoginForm loginForm, HttpSession session) {
+        Member member = memberService.loginMember(loginForm);
         String sessionKey = UUID.randomUUID().toString();
-        session.setAttribute(sessionKey, memberId);
+        session.setAttribute(sessionKey, member.getId());
         return ResponseEntity.ok()
                 .header("Authorization", sessionKey)
-                .build();
+                .body(new LoginSuccessResponse(member.getName()));
     }
 
     @Operation(summary = "자동 로그인")
