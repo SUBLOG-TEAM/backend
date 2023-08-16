@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: test
+    include: db
+
+server:
+  servlet:
+    session:
+      timeout: 1m
