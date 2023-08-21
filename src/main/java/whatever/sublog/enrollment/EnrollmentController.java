@@ -1,5 +1,7 @@
 package whatever.sublog.enrollment;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +25,12 @@ import whatever.sublog.enrollment.dto.PaymentMethodResponses;
 @RequestMapping("/enrollments")
 @CrossOrigin("*")
 @RestController
+@Tag(name = "구독 관련 API", description = "구독 CRUD 관련 기능을 제공하는 API입니다.")
 public class EnrollmentController {
 
     private final EnrollmentService enrollmentService;
 
+    @Operation(summary = "구독 서비스 등록")
     @PostMapping("/register")
     public ResponseEntity<EnrollmentEntryResponse> registerEnrollment(@RequestBody EnrollmentRegisterForm registerForm) {
         registerForm.setMemberId(1L);
@@ -34,6 +38,7 @@ public class EnrollmentController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "등록할 구독 서비스 목록 보기")
     @GetMapping("/services")
     public ResponseEntity<List<String>> getServices() {
         List<String> services = new ArrayList<>();
@@ -43,18 +48,21 @@ public class EnrollmentController {
         return ResponseEntity.ok(services);
     }
 
+    @Operation(summary = "결제 카드사 보기")
     @GetMapping("/payment-method")
     public ResponseEntity<PaymentMethodResponses> getPaymentMethods() {
         PaymentMethodResponses paymentMethods = enrollmentService.getPaymentMethods();
         return ResponseEntity.ok(paymentMethods);
     }
 
+    @Operation(summary = "구독 서비스 삭제")
     @DeleteMapping("/{enrollmentId}")
     public ResponseEntity<Void> deleteEnrollment(@PathVariable("enrollmentId") Long id) {
         enrollmentService.deleteEnrollment(1L, id);
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "등록한 구독 서비스 더보기")
     @GetMapping
     public ResponseEntity<EnrollmentsResponse> getEnrollments(@RequestParam EnrollmentSearchParam searchParam) {
         EnrollmentsResponse response = enrollmentService.findEnrollmentPage(searchParam);
