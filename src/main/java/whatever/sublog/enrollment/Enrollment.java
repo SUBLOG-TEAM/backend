@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
+import lombok.Builder;
 import lombok.Getter;
 import whatever.sublog.global.BaseTimeEntity;
 
@@ -27,9 +28,17 @@ public class Enrollment extends BaseTimeEntity {
     private String name;
 
     @Column(nullable = false)
-    private Integer price;
+    private Integer pay;
 
     @Column(nullable = false)
     private LocalDateTime payAt;
 
+    @Builder
+    public Enrollment(Long memberId, Long paymentMethodId, String name, Integer pay, LocalDateTime payAt) {
+        this.memberId = memberId;
+        this.paymentMethodId = paymentMethodId;
+        this.name = name;
+        this.pay = pay;
+        this.payAt = payAt;
+    }
 }

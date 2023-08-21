@@ -43,6 +43,6 @@ public class MemberService {
 
     public void findMember(Long memberId) {
         memberRepository.findById(memberId)
-                .orElseThrow(() -> new AutoLoginFailException("자동 로그인 실패"));
+                .orElseThrow(() -> new AutoLoginFailException("존재하지 않는 사용자 : " + memberId));
     }
 }

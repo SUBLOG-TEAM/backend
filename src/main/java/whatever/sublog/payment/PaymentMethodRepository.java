@@ -1,4 +1,4 @@
-package whatever.sublog.enrollment;
+package whatever.sublog.payment;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
