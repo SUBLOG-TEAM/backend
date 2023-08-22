@@ -47,14 +47,14 @@ public class EnrollmentController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<EnrollmentsResponse> getEnrollments(@ModelAttribute EnrollmentSearchParam searchParam) {
+    public ResponseEntity<EnrollmentsResponse> getEnrollments(@RequestAttribute("memberId") Long memberId, @ModelAttribute EnrollmentSearchParam searchParam) {
         if (searchParam.getPage() == null) {
             searchParam.setPage(1);
         }
         if (searchParam.getSize() == null) {
             searchParam.setSize(2);
         }
-        EnrollmentsResponse response = enrollmentService.findEnrollmentPage(searchParam);
+        EnrollmentsResponse response = enrollmentService.findEnrollmentPage(memberId, searchParam);
         return ResponseEntity.ok(response);
     }
 

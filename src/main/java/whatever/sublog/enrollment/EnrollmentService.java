@@ -46,11 +46,11 @@ public class EnrollmentService {
         enrollmentRepository.deleteById(enrollmentId);
     }
 
-    public EnrollmentsResponse findEnrollmentPage(EnrollmentSearchParam param) {
+    public EnrollmentsResponse findEnrollmentPage(Long memberId, EnrollmentSearchParam param) {
         // 페이지 offset, limit 설정
         Pageable pageable = PageRequest.of(param.getPage() - 1, param.getSize());
         // 페이징 형태로 가져옴
-        Page<EnrollmentEntryResponse> enrollmentsPage = enrollmentRepository.findEnrollmentPagination(pageable);
+        Page<EnrollmentEntryResponse> enrollmentsPage = enrollmentRepository.findEnrollmentPagination(memberId, pageable);
 
         EnrollmentsResponse response = new EnrollmentsResponse();
         response.setEntries(enrollmentsPage.getContent());
