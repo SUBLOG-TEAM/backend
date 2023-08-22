@@ -26,12 +26,12 @@ public class EnrollmentService {
     private final PaymentMethodService paymentMethodService;
 
     @Transactional
-    public EnrollmentEntryResponse createEnrollment(EnrollmentRegisterForm registerForm) {
+    public EnrollmentEntryResponse createEnrollment(Long memberId, EnrollmentRegisterForm registerForm) {
         if (registerForm.getPay() < 0) {
             throw new PayRangeException("가격이 올바르지 않습니다. : " + registerForm.getPay());
         }
-        memberService.findMember(registerForm.getMemberId());
-        Enrollment enrollment = enrollmentRepository.save(registerForm.dtoToEntity());
+        memberService.findMember(memberId);
+        Enrollment enrollment = enrollmentRepository.save(registerForm.dtoToEntity(memberId));
         PaymentMethod paymentMethod = paymentMethodService.findPaymentMethodOrElseThrow(registerForm.getPaymentMethodId());
         return new EnrollmentEntryResponse(enrollment, paymentMethod.getProductName());
     }
@@ -46,11 +46,11 @@ public class EnrollmentService {
         enrollmentRepository.deleteById(enrollmentId);
     }
 
-    public EnrollmentsResponse findEnrollmentPage(EnrollmentSearchParam param) {
+    public EnrollmentsResponse findEnrollmentPage(Long memberId, EnrollmentSearchParam param) {
         // 페이지 offset, limit 설정
-        Pageable pageable = PageRequest.of(param.getPage(), param.getSize());
+        Pageable pageable = PageRequest.of(param.getPage() - 1, param.getSize());
         // 페이징 형태로 가져옴
-        Page<EnrollmentEntryResponse> enrollmentsPage = enrollmentRepository.findEnrollmentPagination(pageable);
+        Page<EnrollmentEntryResponse> enrollmentsPage = enrollmentRepository.findEnrollmentPagination(memberId, pageable);
 
         EnrollmentsResponse response = new EnrollmentsResponse();
         response.setEntries(enrollmentsPage.getContent());
@@ -62,7 +62,7 @@ public class EnrollmentService {
         }
         // 다음 Cursor 설정
         if (enrollmentsPage.hasNext()) {
-            response.setNextCursor((param.getPage() + 1) * param.getSize());
+            response.setNextCursor((param.getPage()) * param.getSize() + 1);
         } else {
             response.setNextCursor(null);
         }

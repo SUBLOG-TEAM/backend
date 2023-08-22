@@ -10,10 +10,6 @@ import whatever.sublog.enrollment.Enrollment;
 @NoArgsConstructor
 public class EnrollmentRegisterForm {
 
-    @Schema(description = "사용자 ID")
-    private Long memberId;
-
-    @Schema(description = "구독 서비스명. 10자 이내로 작성")
     private String name;
 
     @Schema(description = "구독 가격. 0 이상인 정수가 아니면 예외")
@@ -32,15 +28,11 @@ public class EnrollmentRegisterForm {
         this.paymentMethodId = paymentMethodId;
     }
 
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
-    }
-
-    public Enrollment dtoToEntity() {
+    public Enrollment dtoToEntity(Long memberId) {
         return Enrollment.builder()
-            .memberId(this.memberId)
+            .memberId(memberId)
             .paymentMethodId(this.paymentMethodId)
-            .name(name)
+            .name(this.name)
             .pay(this.pay)
             .payAt(this.payAt)
             .build();

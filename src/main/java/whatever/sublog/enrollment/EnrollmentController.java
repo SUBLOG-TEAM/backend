@@ -6,15 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import whatever.sublog.enrollment.dto.EnrollmentEntryResponse;
 import whatever.sublog.enrollment.dto.EnrollmentRegisterForm;
 import whatever.sublog.enrollment.dto.EnrollmentSearchParam;
@@ -32,9 +24,8 @@ public class EnrollmentController {
 
     @Operation(summary = "구독 서비스 등록")
     @PostMapping("/register")
-    public ResponseEntity<EnrollmentEntryResponse> registerEnrollment(@RequestBody EnrollmentRegisterForm registerForm) {
-        registerForm.setMemberId(1L);
-        EnrollmentEntryResponse response = enrollmentService.createEnrollment(registerForm);
+    public ResponseEntity<EnrollmentEntryResponse> registerEnrollment(@RequestAttribute("memberId") Long memberId, @RequestBody EnrollmentRegisterForm registerForm) {
+        EnrollmentEntryResponse response = enrollmentService.createEnrollment(memberId, registerForm);
         return ResponseEntity.ok(response);
     }
 
@@ -57,15 +48,20 @@ public class EnrollmentController {
 
     @Operation(summary = "구독 서비스 삭제")
     @DeleteMapping("/{enrollmentId}")
-    public ResponseEntity<Void> deleteEnrollment(@PathVariable("enrollmentId") Long id) {
-        enrollmentService.deleteEnrollment(1L, id);
+    public ResponseEntity<Void> deleteEnrollment(@RequestAttribute("memberId") Long memberId, @PathVariable("enrollmentId") Long enrollmentId) {
+        enrollmentService.deleteEnrollment(memberId, enrollmentId);
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "등록한 구독 서비스 더보기")
-    @GetMapping
-    public ResponseEntity<EnrollmentsResponse> getEnrollments(@RequestParam EnrollmentSearchParam searchParam) {
-        EnrollmentsResponse response = enrollmentService.findEnrollmentPage(searchParam);
+    @GetMapping("/list")
+    public ResponseEntity<EnrollmentsResponse> getEnrollments(@RequestAttribute("memberId") Long memberId, @ModelAttribute EnrollmentSearchParam searchParam) {
+        if (searchParam.getPage() == null) {
+            searchParam.setPage(1);
+        }
+        if (searchParam.getSize() == null) {
+            searchParam.setSize(2);
+        }
+        EnrollmentsResponse response = enrollmentService.findEnrollmentPage(memberId, searchParam);
         return ResponseEntity.ok(response);
     }
 

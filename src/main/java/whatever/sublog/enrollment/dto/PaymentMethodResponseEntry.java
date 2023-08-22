@@ -16,7 +16,7 @@ public class PaymentMethodResponseEntry {
     private String productName;
 
     public PaymentMethodResponseEntry(PaymentMethod paymentMethod) {
-        id = paymentMethod.getId();
-        productName = paymentMethod.getProductName();
+        this.id = paymentMethod.getId();
+        this.productName = paymentMethod.getProductName();
     }
 }

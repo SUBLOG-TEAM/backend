@@ -14,9 +14,6 @@ public class EnrollmentsResponse {
     @Schema(description = "이전 위치")
     private Integer prevCursor;
 
-    @Schema(description = "이번 달 결제 금액")
-    private Integer totalPayment;
-
     @Schema(description = "구독 리스트")
     private List<EnrollmentEntryResponse> entries;
 
