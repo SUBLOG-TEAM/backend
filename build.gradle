@@ -26,13 +26,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
-
+	// lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-
+	// test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mockito:mockito-junit-jupiter:5.3.1'
-
+	// db
+	implementation 'mysql:mysql-connector-java:8.0.27'
 	implementation 'com.h2database:h2'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'com.h2database:h2'
