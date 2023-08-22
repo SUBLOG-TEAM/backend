@@ -9,8 +9,6 @@ import whatever.sublog.enrollment.Enrollment;
 @NoArgsConstructor
 public class EnrollmentRegisterForm {
 
-    private Long memberId;
-
     private String name;
 
     private Integer pay;
@@ -26,15 +24,11 @@ public class EnrollmentRegisterForm {
         this.paymentMethodId = paymentMethodId;
     }
 
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
-    }
-
-    public Enrollment dtoToEntity() {
+    public Enrollment dtoToEntity(Long memberId) {
         return Enrollment.builder()
-            .memberId(this.memberId)
+            .memberId(memberId)
             .paymentMethodId(this.paymentMethodId)
-            .name(name)
+            .name(this.name)
             .pay(this.pay)
             .payAt(this.payAt)
             .build();

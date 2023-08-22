@@ -2,7 +2,9 @@ package whatever.sublog.enrollment.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
 @Getter
 @NoArgsConstructor
 public class EnrollmentSearchParam {
@@ -12,17 +14,7 @@ public class EnrollmentSearchParam {
     private Integer size;
 
     public EnrollmentSearchParam(Integer page, Integer size) {
-        if (page == null) {
-            this.page = 0;
-        }
-        else {
-            this.page = page;
-        }
-        if (size == null) {
-            this.size = 2;
-        }
-        else {
-            this.size = size;
-        }
+        this.page = page;
+        this.size = size;
     }
 }

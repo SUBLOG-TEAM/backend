@@ -12,8 +12,6 @@ public class EnrollmentsResponse {
 
     private Integer prevCursor;
 
-    private Integer totalPayment;
-
     private List<EnrollmentEntryResponse> entries;
 
     private Integer nextCursor;

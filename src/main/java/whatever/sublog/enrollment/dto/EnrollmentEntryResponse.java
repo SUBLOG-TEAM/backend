@@ -28,10 +28,10 @@ public class EnrollmentEntryResponse {
     }
 
     public EnrollmentEntryResponse(Enrollment enrollment, String productName) {
-        id = enrollment.getId();
-        name = enrollment.getName();
-        pay = enrollment.getPay();
-        payAt = enrollment.getPayAt();
+        this.id = enrollment.getId();
+        this.name = enrollment.getName();
+        this.pay = enrollment.getPay();
+        this.payAt = enrollment.getPayAt();
         this.productName = productName;
     }
 }
