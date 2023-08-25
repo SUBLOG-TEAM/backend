@@ -10,6 +10,7 @@ import whatever.sublog.enrollment.Enrollment;
 @NoArgsConstructor
 public class EnrollmentRegisterForm {
 
+    @Schema(description = "구독 서비스명")
     private String name;
 
     @Schema(description = "구독 가격. 0 이상인 정수가 아니면 예외")

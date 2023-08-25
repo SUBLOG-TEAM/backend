@@ -28,17 +28,25 @@ public class Enrollment extends BaseTimeEntity {
     private String name;
 
     @Column(nullable = false)
+    private String thumbnail;
+
+    @Column(nullable = false)
     private Integer pay;
 
     @Column(nullable = false)
     private Integer payAt;
 
     @Builder
-    public Enrollment(Long memberId, Long paymentMethodId, String name, Integer pay, Integer payAt) {
+    public Enrollment(Long memberId, Long paymentMethodId, String name, String thumbnail, Integer pay, Integer payAt) {
         this.memberId = memberId;
         this.paymentMethodId = paymentMethodId;
         this.name = name;
+        this.thumbnail = thumbnail;
         this.pay = pay;
         this.payAt = payAt;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

@@ -16,6 +16,9 @@ public class EnrollmentEntryResponse {
     @Schema(description = "구독 서비스명")
     private String name;
 
+    @Schema(description = "구독 서비스 썸네일")
+    private String thumbnail;
+
     @Schema(description = "구독 가격")
     private Integer pay;
 
@@ -25,9 +28,10 @@ public class EnrollmentEntryResponse {
     @Schema(description = "구독 결제 카드사")
     private String productName;
 
-    public EnrollmentEntryResponse(Long id, String name, Integer pay, Integer payAt, String productName) {
+    public EnrollmentEntryResponse(Long id, String name, String thumbnail, Integer pay, Integer payAt, String productName) {
         this.id = id;
         this.name = name;
+        this.thumbnail = thumbnail;
         this.pay = pay;
         this.payAt = payAt;
         this.productName = productName;
@@ -36,6 +40,7 @@ public class EnrollmentEntryResponse {
     public EnrollmentEntryResponse(Enrollment enrollment, String productName) {
         this.id = enrollment.getId();
         this.name = enrollment.getName();
+        this.thumbnail = enrollment.getThumbnail();
         this.pay = enrollment.getPay();
         this.payAt = enrollment.getPayAt();
         this.productName = productName;
