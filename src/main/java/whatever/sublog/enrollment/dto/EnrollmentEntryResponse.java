@@ -20,12 +20,12 @@ public class EnrollmentEntryResponse {
     private Integer pay;
 
     @Schema(description = "구독 결제일")
-    private LocalDateTime payAt;
+    private Integer payAt;
 
     @Schema(description = "구독 결제 카드사")
     private String productName;
 
-    public EnrollmentEntryResponse(Long id, String name, Integer pay, LocalDateTime payAt, String productName) {
+    public EnrollmentEntryResponse(Long id, String name, Integer pay, Integer payAt, String productName) {
         this.id = id;
         this.name = name;
         this.pay = pay;

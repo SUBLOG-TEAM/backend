@@ -16,12 +16,12 @@ public class EnrollmentRegisterForm {
     private Integer pay;
 
     @Schema(description = "결제 날짜")
-    private LocalDateTime payAt;
+    private Integer payAt;
 
     @Schema(description = "구독 결제 카드사 ID")
     private Long paymentMethodId;
 
-    public EnrollmentRegisterForm(String name, Integer pay, LocalDateTime payAt, Long paymentMethodId) {
+    public EnrollmentRegisterForm(String name, Integer pay, Integer payAt, Long paymentMethodId) {
         this.name = name;
         this.pay = pay;
         this.payAt = payAt;

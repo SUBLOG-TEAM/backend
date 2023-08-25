@@ -31,10 +31,10 @@ public class Enrollment extends BaseTimeEntity {
     private Integer pay;
 
     @Column(nullable = false)
-    private LocalDateTime payAt;
+    private Integer payAt;
 
     @Builder
-    public Enrollment(Long memberId, Long paymentMethodId, String name, Integer pay, LocalDateTime payAt) {
+    public Enrollment(Long memberId, Long paymentMethodId, String name, Integer pay, Integer payAt) {
         this.memberId = memberId;
         this.paymentMethodId = paymentMethodId;
         this.name = name;

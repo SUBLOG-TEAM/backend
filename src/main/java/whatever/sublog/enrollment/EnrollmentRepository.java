@@ -15,7 +15,7 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
     @Query(value = "SELECT new whatever.sublog.enrollment.dto.EnrollmentEntryResponse(" +
         "e.id, e.name, e.pay, e.payAt, p.productName) " +
         "FROM Enrollment e, PaymentMethod p " +
-        "WHERE e.paymentMethodId = p.id AND e.memberId = :memberId AND e.payAt >= current_timestamp() " +
+        "WHERE e.paymentMethodId = p.id AND e.memberId = :memberId " +
         "ORDER BY e.payAt")
     Page<EnrollmentEntryResponse> findEnrollmentPagination(@Param("memberId") Long memberId, Pageable pageable);
 
@@ -23,7 +23,7 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
             "e.id, e.name, e.pay, e.payAt, p.productName) " +
             "FROM Enrollment e, PaymentMethod p " +
             "WHERE e.paymentMethodId = p.id AND e.memberId = :memberId " +
-            "AND month(e.payAt) = month(current_timestamp()) AND e.payAt >= current_timestamp() " +
+            "AND e.payAt = month(current_timestamp()) " +
             "ORDER BY e.payAt")
     List<EnrollmentEntryResponse> findMainInfoPagination(@Param("memberId") Long memberId);
 
